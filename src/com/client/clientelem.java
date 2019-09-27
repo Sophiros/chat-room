@@ -1,8 +1,6 @@
 package com.client;
 
 import java.net.Socket;
-import java.util.Vector;
-
 import javax.swing.JList;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
@@ -17,7 +15,6 @@ public class clientelem {
 	private static JTextField message = new JTextField(null);
 	private static JTextField Filetext = new JTextField(null);
 	private static JTextArea body = new JTextArea();
-	// private static Vector<String> contents = new Vector<String>();
 	private static JList<String> usernamelist = new JList<String>();
 	
 	public String getName() {
@@ -75,12 +72,6 @@ public class clientelem {
 	public void setBody(JTextArea obj) {
 		body = obj;
 	}
-//	public Vector<String> getContents(){
-//		return contents;
-//	}
-//	public void setContents(Vector<String> obj) {
-//		contents = obj;
-//	}
 	public JList<String> getUserNameList(){
 		return usernamelist;
 	}

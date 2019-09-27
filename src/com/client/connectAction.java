@@ -72,15 +72,9 @@ class RecToServer implements Runnable {
 					String[] name = namestr.split(" ");
 					new clientelem().setTotalName(name);
 					new clientelem().setUserNameList();
-					// new clientelem().getContents().clear();
-					// Vector<String> nameList = new Vector<String>();
 					for(int i = 0; i < name.length; i++) {
-						// new clientelem().getContents().add(i, name[i]);
-						// new clientelem().setUserNameList();
 						new clientelem().getBody().append("用户：" + name[i]);
 					}
-					
-					//new clientelem().setContents(nameList);
 				}
 			}
 		} catch (SocketException e) {
