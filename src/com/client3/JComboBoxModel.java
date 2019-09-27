@@ -34,6 +34,7 @@ public class JComboBoxModel extends JFrame {
         Txtinput = clientElem.getMessage();//打字文本框
         JTextArea ta = clientElem.getBody();
         ta.setLineWrap(true);//设置自动换行
+        ta.setEditable(false);
         Txtchat = new JScrollPane(ta);//聊天文本框   
         
         /*添加文本框*/     
