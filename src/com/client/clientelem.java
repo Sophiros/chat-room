@@ -17,8 +17,8 @@ public class clientelem {
 	private static JTextField message = new JTextField(null);
 	private static JTextField Filetext = new JTextField(null);
 	private static JTextArea body = new JTextArea();
-	private static Vector<String> contents = new Vector<String>();
-	private static JList<String> usernamelist = new JList<String>(contents);
+	// private static Vector<String> contents = new Vector<String>();
+	private static JList<String> usernamelist = new JList<String>();
 	
 	public String getName() {
 		return name;
@@ -75,6 +75,12 @@ public class clientelem {
 	public void setBody(JTextArea obj) {
 		body = obj;
 	}
+//	public Vector<String> getContents(){
+//		return contents;
+//	}
+//	public void setContents(Vector<String> obj) {
+//		contents = obj;
+//	}
 	public JList<String> getUserNameList(){
 		return usernamelist;
 	}
@@ -82,12 +88,6 @@ public class clientelem {
 		usernamelist = obj;
 	}
 	public void setUserNameList() {
-		usernamelist = new JList<String>(contents);
-	}
-	public Vector<String> getContents(){
-		return contents;
-	}
-	public void setContents(Vector<String> obj) {
-		contents = obj;
+		usernamelist.setListData(totalName);
 	}
 }
