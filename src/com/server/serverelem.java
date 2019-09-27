@@ -5,18 +5,13 @@ import java.net.Socket;
 import java.util.ArrayList;
 import java.util.List;
 
-import javax.swing.JLabel;
-import javax.swing.JTextArea;
-import javax.swing.JTextField;
+// import javax.swing.JTextArea;
 
 public class serverelem {
-	private static int count = 0;
 	private static int index = 0;
 	private static boolean flag = false;
-	private static JLabel LabelSendTo;
 	private static ServerSocket serverSocket;
-	private static JTextArea body = new JTextArea();
-	private static JTextField postTo = new JTextField(null);
+	// private static JTextArea body = new JTextArea();
 	private static List<Socket> clientSocketList = new ArrayList<Socket>();
 	private static List<String> clientNameList = new ArrayList<String>();
 	

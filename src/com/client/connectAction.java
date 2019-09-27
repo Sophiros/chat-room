@@ -29,7 +29,7 @@ public class connectAction{
 		}
 		// read r = new read(new clientelem().getsocket());
 		// Thread read = new Thread(r);
-		//read.start();
+		// read.start();
 		RecToServer t = new RecToServer(new clientelem().getsocket());
 		Thread Rec = new Thread(t);
 		Rec.start();
@@ -73,7 +73,7 @@ class RecToServer implements Runnable {
 					new clientelem().setTotalName(name);
 					new clientelem().setUserNameList();
 					for(int i = 0; i < name.length; i++) {
-						new clientelem().getBody().append("用户：" + name[i]);
+						new clientelem().getBody().append("用户：" + name[i] + "\n");
 					}
 				}
 			}

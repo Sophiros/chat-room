@@ -28,7 +28,6 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
-import javax.swing.JTextField;
 import javax.swing.WindowConstants;
 
 public class server extends JFrame {
@@ -36,8 +35,6 @@ public class server extends JFrame {
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
-	private JTextField postTo = new JTextField("", 50);
-	// 创建文字框
 	JLabel LabelSendTo;
 	private JTextArea body = new JTextArea();
 	// 创建文字域
@@ -55,7 +52,7 @@ public class server extends JFrame {
 		JFrame window = new JFrame("服务器");
 		Container container = window.getContentPane();
 		// 获取一个容器
-		container.setLayout(new GridLayout(4, 1, 50, 10));
+		container.setLayout(new GridLayout(4, 1, 0, 10));
 		// 设置网格，参数依次为（行，列，长度，宽度）
 		LabelSendTo = new JLabel("开放端口：");
 		// 创建标签
@@ -68,7 +65,6 @@ public class server extends JFrame {
 		roll.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
 		// 设置让滚动条一直显示
 		container.add(LabelSendTo);
-		container.add(postTo);
 		container.add(roll);
 		container.add(start);
 		// 按顺序加入容器
@@ -84,22 +80,19 @@ public class server extends JFrame {
 	}
 
 	public class getAction implements ActionListener {
-		public void actionPerformed(ActionEvent arg0) {
-			if(postTo.getText().length()!=0){	
-				body.append("端口"+postTo.getText()+"已开放"+"\n");
-				LabelSendTo.setText(LabelSendTo.getText()+postTo.getText()+"、");
+		public void actionPerformed(ActionEvent arg0) {	
+				body.append("端口8888已开放"+"\n");
+				LabelSendTo.setText(LabelSendTo.getText()+"8888");
 				Count c = new Count();
 				Thread count1 = new Thread(c);
-				count1.start();
-			}
-			
+				count1.start();		
 		}
 	}
 
 	public class Count implements Runnable {
 		@Override
 		public void run() {
-			Serverserver t = new Serverserver(Integer.parseInt(postTo.getText()));
+			Serverserver t = new Serverserver(8888);
 			String name = "";
 			while (true) {
 				try {
@@ -119,9 +112,7 @@ public class server extends JFrame {
 						body.append("name: "+ clientlist.get(key) + "\n");
 						name += clientlist.get(key) + " ";
 					}
-					
 					socketList.add(socket);
-					
 					for (int i = 0; i < socketList.size(); i++) {
 						Socket socket = socketList.get(i);
 						DataOutputStream dos = new DataOutputStream(socket.getOutputStream());
@@ -129,7 +120,6 @@ public class server extends JFrame {
 						body.append("用户列表更新，发送给端口："+socket.getPort()+ "\n");
 						dos.flush();
 						}
-					
 					name = "";
 				} catch (IOException e) {
 					e.printStackTrace();
@@ -180,8 +170,8 @@ public class server extends JFrame {
 				BufferedReader in = new BufferedReader(new InputStreamReader(socket.getInputStream()));
 				while (true) {
 					InputStream is=socket.getInputStream();
-					byte[]bys2=new byte[1024];
-					int len2=is.read(bys2);
+					byte[] bys2=new byte[1024];
+					int len2 =is.read(bys2);
 					String client=new String(bys2, 0, len2);
 					
 					if(client.contains("0")) {

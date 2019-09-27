@@ -18,13 +18,13 @@ public class JComboBoxModel extends JFrame {
     
     JComboBoxModel(){
         super("魔方小镇v1.2");
-        setBounds(100,100,1150,750);
+        setBounds(100,100,1050,700);
         Container c = getContentPane();
         c.setLayout(null);
         clientelem clientElem = new clientelem();
 
-        JButton jbtxt = new JButton("文字发送");jbtxt.setBounds(1000,490,110,60);c.add(jbtxt);
-        JButton jbpic = new JButton("图片发送");jbpic.setBounds(1000,560,110,60);c.add(jbpic);
+        JButton jbtxt = new JButton("文字发送");jbtxt.setBounds(900,490,110,60);c.add(jbtxt);
+        JButton jbpic = new JButton("图片发送");jbpic.setBounds(900,560,110,60);c.add(jbpic);
         
         Txtname = new JTextField(null);
         Txtip = new JTextField(null);//服务器IP
@@ -37,11 +37,11 @@ public class JComboBoxModel extends JFrame {
         Txtchat = new JScrollPane(ta);//聊天文本框   
         
         /*添加文本框*/     
-        Txtinput.setBounds(310,490,690,130);      
+        Txtinput.setBounds(210,490,690,130);      
         Txtip.setBounds(90,20,200,40);
-        Txtchat.setBounds(310,100,800,360);        
+        Txtchat.setBounds(210,100,800,360);        
         Txtport.setBounds(390,20,200,40);
-        jusernamelist.setBounds(30,120,250,500);
+        jusernamelist.setBounds(30,120,150,500);
         Txtname.setBounds(700,20,200,40);
         Txtname.setHorizontalAlignment(JTextField.CENTER);
         c.add(Txtinput);        
@@ -74,6 +74,7 @@ public class JComboBoxModel extends JFrame {
         
         Txtname.setText(clientElem.getName());
         Txtip.setText(clientElem.getServerIP());
+        Txtport.setText(String.valueOf(clientElem.getPort()));
         jbtxt.addActionListener(new sendAction());
         //添加列表监听器，在输入框中显示   @联系人说： 
         jusernamelist.addListSelectionListener(new SelecTry());
@@ -92,17 +93,7 @@ public class JComboBoxModel extends JFrame {
 	public static void main(String[] args){
     	new JComboBoxModel();
     }
-	
-//	static void addusername(String listname){
-//      	contents.add(listname);
-//    }
 }
 
-//class SelecTry implements ListSelectionListener
-//{
-// public void valueChanged(ListSelectionEvent e){
-//	 JComboBoxModel.Txtinput.setText("@" +JComboBoxModel.jusernamelist.getSelectedValue()+"说");
-// }
-//}
 
 
