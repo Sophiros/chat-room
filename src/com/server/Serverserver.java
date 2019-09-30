@@ -46,10 +46,13 @@ public class Serverserver implements Runnable {
                         break;
                     }
                 }
+                
                 for (int j = 0; j < 4; j++) {
                     serverValue.getMessageOrFile()[j] = bytes[j + i + 8];
                 }
+                
                 String s1 = new String(serverValue.getMessageOrFile(),"Gbk");
+                
                 if (Objects.equals(s1, "FILE")) {
                     serverValue.setEnd("********".getBytes("Gbk"));
                     for (int j = 0; ; j++) {
@@ -103,11 +106,12 @@ public class Serverserver implements Runnable {
                     writer.write(f);
                     writer.close();
                 }
+                
                 if (Objects.equals(s1, "MESM")) {
                     for (int j = 0; j < 4; j++) {
                         serverValue.getSendName()[j] = bytes[j + i];
                     }
-                    String sName = String.valueOf(serverValue.byte4ToInt(serverValue.getSendName()));
+                    String sName = new String(serverValue.getSendName(),"Gbk");
                     for (int j = 0; j < 4; j++) {
                         serverValue.getToName()[j] = bytes[j + i + 4];
                     }
@@ -120,24 +124,24 @@ public class Serverserver implements Runnable {
                             out.flush();
                         }
                     } else {
-                        String name = String.valueOf(serverValue.byte4ToInt(serverValue.getToName()));
-                        if (serverValue.positon(name) != -1) {
-                            Socket socket1 = serverValue.getSocketList().get(serverValue.positon(name));
+                        String name = new String(serverValue.getToName(),"Gbk");
+                        if (serverValue.positon(name) != null) {
+                            Socket socket1 = serverValue.positon(name);
                             DataOutputStream out1 = new DataOutputStream(socket1.getOutputStream());
                             out1.write(bytes);
                             out1.flush();
-                            Socket socket2 = serverValue.getSocketList().get(serverValue.positon(sName));
+                            Socket socket2 = serverValue.positon(sName);
                             DataOutputStream out2 = new DataOutputStream(socket2.getOutputStream());
                             out2.write(bytes);
                             out2.flush();
                         } else {
-                            Socket socket2 = serverValue.getSocketList().get(serverValue.positon(sName));
+                            Socket socket2 = serverValue.positon(sName);
                             DataOutputStream out2 = new DataOutputStream(socket2.getOutputStream());
                             serverValue.setSendName("SEVR".getBytes("Gbk"));
                             serverValue.setStart("########".getBytes("Gbk"));
                             serverValue.setEnd("********".getBytes("Gbk"));
                             serverValue.setMessageOrFile("MESM".getBytes("Gbk"));
-                            serverValue.setToName(serverValue.intToByte4(Integer.parseInt(sName)));
+                            serverValue.setToName(sName.getBytes());
                             byte[] message = "该用户不存在或未上线".getBytes("Gbk");
                             bytes = serverValue.Package(serverValue.getStart(), serverValue.getSendName(), 
                             		serverValue.getMessageOrFile(), serverValue.getToName(), message, serverValue.getEnd());
@@ -146,9 +150,40 @@ public class Serverserver implements Runnable {
                         }
                     }
                 }
+                if(Objects.equals(s1, "NAME")) {
+                	String namelist = ""; 
+                	int j=serverValue.getEnd(bytes,"********".getBytes("Gbk"),8+12)-8;
+                    byte[] getMessage = new byte[j];
+                    System.arraycopy(bytes, 8+12, getMessage, 0, j);
+                    String name = new String(getMessage,"Gbk");
+                	serverValue.getClientList().put(serverValue.getSocket(), name);
+                	serverValue.getBody().append("在线用户:\n");
+					for(Socket key : serverValue.getClientList().keySet()) {
+						serverValue.getBody().append("port: " + key.getPort() + " ");
+						serverValue.getBody().append("name: "+ serverValue.getClientList().get(key) + "\n");
+						namelist += serverValue.getClientList().get(key) + " ";
+					}
+					for (int n = 0; n < serverValue.getSocketList().size(); n++) {
+						Socket socket = serverValue.getSocketList().get(n);
+						DataOutputStream dos = new DataOutputStream(socket.getOutputStream());
+						serverValue.setSendName("SEVR".getBytes("Gbk"));
+	                    serverValue.setStart("########".getBytes("Gbk"));
+	                    serverValue.setEnd("********".getBytes("Gbk"));
+	                    serverValue.setMessageOrFile("LIST".getBytes("Gbk"));
+	                    serverValue.setToName("ALLA".getBytes("Gbk"));
+	                    byte[] nameList = namelist.getBytes("Gbk");
+	                    bytes = serverValue.Package(serverValue.getStart(), serverValue.getSendName(), 
+	                    		serverValue.getMessageOrFile(), serverValue.getToName(), nameList, serverValue.getEnd());
+	                    dos.write(bytes);
+	                    dos.flush();
+	                    serverValue.getBody().append("用户列表更新，发送给端口："+socket.getPort()+ "\n");
+					}
+					namelist = "";
+                }
             }
         } catch (
                 Exception e) {
+        	
             e.printStackTrace();
         }
     }

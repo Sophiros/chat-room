@@ -1,9 +1,20 @@
 package com.client3;
 
-import javax.swing.*;
-import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
+import java.awt.Color;
+import java.awt.Container;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
+import java.io.IOException;
+
+import javax.swing.JButton;
+import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JList;
+import javax.swing.JScrollPane;
+import javax.swing.JTextArea;
+import javax.swing.JTextField;
+import javax.swing.WindowConstants;
+
 import com.client.*;
 
 /*聊天室类，负责保存当前登陆的每一个用户，并且当某一个用户给服务器发信息时，他需要立刻把这条信息转发给其他客户机*/
@@ -13,7 +24,6 @@ public class JComboBoxModel extends JFrame {
     static JTextField Txtinput;
 	private JTextField Txtip,Txtname;
 	private JTextField Txtport;
-    private static String picfilepath;
     static JList<String> jusernamelist;
     
     JComboBoxModel(){
@@ -79,14 +89,17 @@ public class JComboBoxModel extends JFrame {
         jbtxt.addActionListener(new sendAction());
         //添加列表监听器，在输入框中显示   @联系人说： 
         jusernamelist.addListSelectionListener(new SelecTry());
-        
         //设置按键监听，打开文件选择窗口
-        jbpic.addActionListener(new ActionListener() {
-            @Override
-            public  void actionPerformed(ActionEvent e) {  	
-            	Filepathchooser fil = new Filepathchooser();
-            	picfilepath = fil.getPath();
-            	System.out.println("图片路径是："+picfilepath);
+        jbpic.addActionListener(new sendFileAction());
+        
+        addWindowListener(new WindowAdapter() {
+            public void windowClosing(WindowEvent e) {
+                super.windowClosing(e);
+                try {
+                	clientElem.getSocket().close();
+                } catch (IOException ex) {
+                    ex.printStackTrace();
+                }
             }
         });
     }

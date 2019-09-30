@@ -7,23 +7,31 @@ import java.io.File;
 import java.io.FileInputStream;
 
 public class sendFileAction implements ActionListener {
+	private String picfilepath;
     @Override
     public void actionPerformed(ActionEvent arg0) {
-        sendFile t = new sendFile();
+    	Filepathchooser fileOrImg = new Filepathchooser();
+    	picfilepath = fileOrImg.getPath();
+    	System.out.println("图片路径是："+picfilepath);
+        sendFile t = new sendFile(picfilepath);
         Thread print = new Thread(t);
         print.start();
     }
 }
 
 class sendFile implements Runnable {
-	clientelem clientValue = new clientelem();
+	private String picfilepath;
+	public sendFile(String obj) {
+		picfilepath = obj;
+	}
     @SuppressWarnings("resource")
 	@Override
     public void run() {
         try {
+        	clientelem clientValue = new clientelem();
             DataOutputStream out = new DataOutputStream(clientValue.getSocket().getOutputStream());
-            File file = new File(clientValue.getFiletext().getText());
-            clientValue.setSendName(clientValue.intToByte4(clientValue.getPort()));
+            File file = new File(picfilepath);
+            clientValue.setSendName(clientValue.getName().getBytes());
             clientValue.setStart("########".getBytes("Gbk"));
             clientValue.setEnd("********".getBytes("Gbk"));
             clientValue.setMessageOrFile("FILE".getBytes("Gbk"));

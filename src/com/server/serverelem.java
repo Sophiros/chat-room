@@ -3,7 +3,9 @@ package com.server;
 import java.net.ServerSocket;
 import java.net.Socket;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Objects;
 import javax.swing.JLabel;
 import javax.swing.JTextArea;
@@ -23,6 +25,7 @@ public class serverelem {
 	private static JTextArea body = new JTextArea();
 	private static List<Socket> clientSocketList = new ArrayList<Socket>();
 	private static List<String> clientNameList = new ArrayList<String>();
+	private Map<Socket, String> clientlist = new HashMap<>();
 	
 	public int getIndex() {
 		return index;
@@ -102,21 +105,42 @@ public class serverelem {
 	public List<String> getNameList(){
 		return clientNameList;
 	}
+	public Map<Socket,String> getClientList(){
+		return clientlist;
+	}
 	
-	
+	   public int getEnd(byte[]bytes,byte[]start,int j){
+	       int i ;
+	       byte[] temp = new byte[1024];;
+	       for (i = 0; ; i++) {
+	           temp[i] = bytes[i+j];
+	           if (i > 6
+	                   && temp[i] == start[7]
+	                   && temp[i - 1] == start[6]
+	                   && temp[i - 2] == start[5]
+	                   && temp[i - 3] == start[4]
+	                   && temp[i - 4] == start[3]
+	                   && temp[i - 5] == start[2]
+	                   && temp[i - 6] == start[1]
+	                   && temp[i - 7] == start[0]) {
+	               i++;
+	               break;
+	           }
+	       }
+	       return i;
+	   }
     /**
     *
     * @param name
     * @return
     */
-   public int positon(String name) {
-       int positon = -1;
-       int i;
-       for (i = 0; i < 20; i++) {
-           if (Objects.equals(client[i], name)) {
-               positon = i;
+   public Socket positon(String name) {
+       Socket positon = null;
+       for(Socket key: clientlist.keySet()) {
+           if (Objects.equals(clientlist.get(key), name)) {
+               positon = key;
                break;
-           }
+               }
        }
        return positon;
    }
@@ -135,7 +159,6 @@ public class serverelem {
        }
        return i;
    }
-
 
    /**
     * int整数转换为4字节的byte数组

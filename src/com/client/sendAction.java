@@ -19,13 +19,13 @@ class send implements Runnable {
     public void run() {
         try {
             DataOutputStream out = new DataOutputStream(clientValue.getSocket().getOutputStream());
-            clientValue.setSendName(clientValue.intToByte4(clientValue.getPort()));
+            clientValue.setSendName(clientValue.getName().getBytes());
             clientValue.setStart("########".getBytes("Gbk"));
             clientValue.setEnd("********".getBytes("Gbk"));
             clientValue.setMessageOrFile("MESM".getBytes("Gbk"));
             byte[] message = new byte[996];
             if (clientValue.getMessage().getText().contains("@")) {
-                byte[] toName1 = clientValue.intToByte4(Integer.parseInt(clientValue.getMessage().getText().split("@")[0]));
+                byte[] toName1 = clientValue.getMessage().getText().split("@")[0].getBytes("Gbk");
                 clientValue.setToName(toName1);
                 message = clientValue.getMessage().getText().split("@")[1].getBytes("Gbk");
                 byte[] bytes = clientValue.Package(clientValue.getStart(), clientValue.getSendName(), 

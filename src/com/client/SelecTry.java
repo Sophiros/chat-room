@@ -7,6 +7,6 @@ public class SelecTry implements ListSelectionListener
 {
 	clientelem clientElem = new clientelem();
  public void valueChanged(ListSelectionEvent e){
-	 clientElem.getMessage().setText("@" +clientElem.getUserNameList().getSelectedValue()+"说");
+	 clientElem.getMessage().setText(clientElem.getUserNameList().getSelectedValue()+"@");
  }
 }

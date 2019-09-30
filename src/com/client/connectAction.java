@@ -14,14 +14,21 @@ public class connectAction{
 			String serverIP = clientValue.getServerIP();
 			int port = clientValue.getPort();
 			Socket socket1 = new Socket(serverIP, port);
-			// Socket socket1 = new Socket(serverIP, Integer.parseInt(new value().getPostTo().getText()));
 			clientValue.setSocket(socket1);
 			clientValue.getBody().append("欢迎来到魔方小镇" + "\n");
 			
-//			DataOutputStream dos = new DataOutputStream(clientValue.getSocket().getOutputStream());
-//			dos.writeUTF(clientValue.getName());
-//			dos.flush();
-			//dos.close();
+			byte[] bytes = new byte[1024];
+			DataOutputStream dos = new DataOutputStream(clientValue.getSocket().getOutputStream());
+			clientValue.setSendName("SEVR".getBytes("Gbk"));
+			clientValue.setStart("########".getBytes("Gbk"));
+			clientValue.setEnd("********".getBytes("Gbk"));
+			clientValue.setMessageOrFile("NAME".getBytes("Gbk"));
+			clientValue.setToName("ALLA".getBytes("Gbk"));
+            byte[] name = clientValue.getName().getBytes("Gbk");
+            bytes = clientValue.Package(clientValue.getStart(), clientValue.getSendName(), 
+            		clientValue.getMessageOrFile(), clientValue.getToName(), name, clientValue.getEnd());
+            dos.write(bytes);
+            dos.flush();
 			
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -29,9 +36,6 @@ public class connectAction{
 		Read r = new Read();
 		Thread read = new Thread(r);
 		read.start();
-//		RecToServer t = new RecToServer(clientValue.getSocket());
-//		Thread Rec = new Thread(t);
-//		Rec.start();
 	}
 }
 
@@ -51,21 +55,21 @@ class Read implements Runnable {
                 String s1 = new String(clientValue.getSendName(),"Gbk");
                 if (Objects.equals(s1, "SEVR")) {
                     s1 = "服务器";
-                } else if (clientValue.byte4ToInt(clientValue.getSendName()) == clientValue.getPort()) {
+                } else if (Objects.equals(s1, clientValue.getName())) {
                     s1 = "你";
                 } else {
-                    s1 = String.valueOf(clientValue.byte4ToInt(clientValue.getSendName()));
+                    s1 = "<" + new String(clientValue.getSendName(),"Gbk") + ">";
                 }
                 for (int j = 0; j < 4; j++) {
                     clientValue.getToName()[j] = bytes[j + i + 4];
                 }
                 String s2 = new String(clientValue.getToName(),"Gbk");
                 if (Objects.equals(s2, "ALLA")) {
-                    s2 = "对大家说";
-                } else if (clientValue.byte4ToInt(clientValue.getToName()) == clientValue.getPort()) {
-                    s2 = "对你说";
+                    s2 = "对大家说：";
+                } else if (Objects.equals(s2,clientValue.getName())) {
+                    s2 = "对你说：";
                 } else {
-                    s2 = "对" + clientValue.byte4ToInt(clientValue.getToName()) + "说";
+                    s2 = "对<" + new String(clientValue.getToName(),"Gbk") + ">说：";
                 }
                 for (int j = 0; j < 4; j++) {
                     clientValue.getMessageOrFile()[j] = bytes[j + i + 8];
@@ -77,7 +81,21 @@ class Read implements Runnable {
                     System.arraycopy(bytes, i+12, getMessage, 0, j);
                     String s4 = new String(getMessage,"Gbk");
                     clientValue.getBody().append(s1 + s2 + s4 + "\n");
-                } else if (Objects.equals(s1, "FILE")) {
+                } else if (Objects.equals(s3, "LIST")) {
+                	int j=clientValue.getEnd(bytes,"********".getBytes("Gbk"),i+12)-8;
+                    byte[] getMessage = new byte[j];
+                    System.arraycopy(bytes, i+12, getMessage, 0, j);
+                    String namelist = new String(getMessage,"Gbk");
+                    if(namelist != "") {
+                    	clientValue.getBody().append("更新用户列表！"+"\n");
+    					String[] name = namelist.split(" ");
+    					clientValue.setTotalName(name);
+    					clientValue.setUserNameList();
+    					for(int n = 0; n < name.length; n++) {
+    						clientValue.getBody().append("用户：" + name[n] + "\n");
+    					}
+    				}
+                }else if (Objects.equals(s3, "FILE")) {
 
                 }
             }

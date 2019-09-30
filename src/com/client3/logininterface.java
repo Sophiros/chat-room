@@ -1,15 +1,17 @@
 package com.client3;
 
-
 import java.awt.Container;
 import java.awt.Font;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+
 import javax.swing.JButton;
 import javax.swing.JDialog;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPasswordField;
 import javax.swing.JTextField;
-import java.awt.event.*;
+
 import com.client.*;
 
 public  class logininterface extends JDialog {
@@ -63,7 +65,13 @@ public  class logininterface extends JDialog {
             		}else{
             			if(passwordbox.getText().equals("1")){
                 			popWindows("登录成功", "登录");
-                			new clientelem().setName(namebox.getText());
+                			String name = namebox.getText();
+                			if(namebox.getText().length() < 4) {
+                				for(int i =name.length()-1; i<4; i++) {
+                					name += " ";
+                				}
+                			}
+                			new clientelem().setName(name);
                 			new JComboBoxModel();
                 			new connectAction().connect();
                 			setVisible(false);
