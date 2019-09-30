@@ -10,7 +10,7 @@ import java.net.Socket;
 import java.util.Objects;
 
 public class Serverserver implements Runnable {
-	serverelem serverValue = new serverelem();
+	ServerElem serverValue = new ServerElem();
     public Serverserver(int port) {
         // 构造方法
         try {

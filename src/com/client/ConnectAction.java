@@ -7,8 +7,8 @@ import java.net.Socket;
 import java.net.SocketException;
 import java.util.Objects;
 
-public class connectAction{
-	clientelem clientValue = new clientelem();
+public class ConnectAction{
+	ClientElem clientValue = new ClientElem();
 	public void connect(){
 		try {
 			String serverIP = clientValue.getServerIP();
@@ -40,7 +40,7 @@ public class connectAction{
 }
 
 class Read implements Runnable {
-	clientelem clientValue = new clientelem();
+	ClientElem clientValue = new ClientElem();
     @Override
     public void run() {
         try {
@@ -117,12 +117,12 @@ class RecToServer implements Runnable {
 				DataInputStream dis = new DataInputStream(socket.getInputStream());
 				String namestr = dis.readUTF();
 				if(namestr != "") {
-					new clientelem().getBody().append("更新用户列表！"+"\n");
+					new ClientElem().getBody().append("更新用户列表！"+"\n");
 					String[] name = namestr.split(" ");
-					new clientelem().setTotalName(name);
-					new clientelem().setUserNameList();
+					new ClientElem().setTotalName(name);
+					new ClientElem().setUserNameList();
 					for(int i = 0; i < name.length; i++) {
-						new clientelem().getBody().append("用户：" + name[i] + "\n");
+						new ClientElem().getBody().append("用户：" + name[i] + "\n");
 					}
 				}
 			}

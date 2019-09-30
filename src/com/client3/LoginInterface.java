@@ -14,7 +14,7 @@ import javax.swing.JTextField;
 
 import com.client.*;
 
-public  class logininterface extends JDialog {
+public  class LoginInterface extends JDialog {
 	/**
 	 * 
 	 */
@@ -22,7 +22,7 @@ public  class logininterface extends JDialog {
 	private JTextField namebox;
 	private JLabel namelab,passwordlab,loginlab;
 	private JPasswordField passwordbox;
-	public logininterface() {
+	public LoginInterface() {
         Container container1 = getContentPane();
         setLayout(null);
         setBounds(200,200,350,500);
@@ -71,9 +71,9 @@ public  class logininterface extends JDialog {
                 					name += " ";
                 				}
                 			}
-                			new clientelem().setName(name);
+                			new ClientElem().setName(name);
                 			new JComboBoxModel();
-                			new connectAction().connect();
+                			new ConnectAction().connect();
                 			setVisible(false);
             			} else {
             				popWindows("登录失败，密码不正确", "ERROR");
@@ -89,7 +89,7 @@ public  class logininterface extends JDialog {
 				JOptionPane.INFORMATION_MESSAGE);
 	}
     public static void main(String[] args) {
-		new logininterface();
+		new LoginInterface();
 	}
     
 

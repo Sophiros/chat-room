@@ -5,7 +5,7 @@ import javax.swing.JList;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
 
-public class clientelem {
+public class ClientElem {
 	private static int serverPort = 8888;
 	private static String name;
 	private static String serverIP = "localhost";

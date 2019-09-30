@@ -5,7 +5,7 @@ import java.awt.event.ActionListener;
 import java.io.IOException;
 
 public class GetAction implements ActionListener {
-	serverelem serverValue = new serverelem();
+	ServerElem serverValue = new ServerElem();
     public void actionPerformed(ActionEvent arg0) {
     	serverValue.getBody().append("端口8888已开放"+"\n");
         Count c = new Count();
@@ -15,7 +15,7 @@ public class GetAction implements ActionListener {
 }
 
 class Count implements Runnable {
-	serverelem serverValue = new serverelem();
+	ServerElem serverValue = new ServerElem();
 	@Override
     public void run() {
         Serverserver t = new Serverserver(8888);

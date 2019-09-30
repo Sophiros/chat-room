@@ -6,11 +6,11 @@ import java.io.DataOutputStream;
 import java.io.File;
 import java.io.FileInputStream;
 
-public class sendFileAction implements ActionListener {
+public class SendFileAction implements ActionListener {
 	private String picfilepath;
     @Override
     public void actionPerformed(ActionEvent arg0) {
-    	Filepathchooser fileOrImg = new Filepathchooser();
+    	FilepathChooser fileOrImg = new FilepathChooser();
     	picfilepath = fileOrImg.getPath();
     	System.out.println("图片路径是："+picfilepath);
         sendFile t = new sendFile(picfilepath);
@@ -28,7 +28,7 @@ class sendFile implements Runnable {
 	@Override
     public void run() {
         try {
-        	clientelem clientValue = new clientelem();
+        	ClientElem clientValue = new ClientElem();
             DataOutputStream out = new DataOutputStream(clientValue.getSocket().getOutputStream());
             File file = new File(picfilepath);
             clientValue.setSendName(clientValue.getName().getBytes());

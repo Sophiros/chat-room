@@ -10,7 +10,7 @@ import java.util.Objects;
 import javax.swing.JLabel;
 import javax.swing.JTextArea;
 
-public class serverelem {
+public class ServerElem {
 	private static int index = 0;
 	private static boolean flag = false;
     private static byte[] start = new byte[8];

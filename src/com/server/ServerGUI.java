@@ -11,8 +11,8 @@ import javax.swing.JTextArea;
 import javax.swing.WindowConstants;
 
 public class ServerGUI {
-	JLabel LabelSendTo = new serverelem().getLabelSendTo();
-	private JTextArea body = new serverelem().getBody();
+	JLabel LabelSendTo = new ServerElem().getLabelSendTo();
+	private JTextArea body = new ServerElem().getBody();
 	// 创建文字域
 	private JScrollPane roll = new JScrollPane(body);
 	// 在文本框上添加滚动条

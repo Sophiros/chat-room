@@ -4,7 +4,7 @@ import java.io.File;
 import javax.swing.JFileChooser;
 import javax.swing.JFrame;
 
-public class Filepathchooser extends JFrame {
+public class FilepathChooser extends JFrame {
 	/**
 	 * 
 	 */
@@ -12,7 +12,7 @@ public class Filepathchooser extends JFrame {
 	
 	private String filepath;
 	
-	public Filepathchooser() {
+	public FilepathChooser() {
 		// 创建文件选择对话框
 		JFileChooser fileChooser = new JFileChooser();
 		// 显示文件选择对话框

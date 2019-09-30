@@ -31,7 +31,7 @@ public class JComboBoxModel extends JFrame {
         setBounds(100,100,1050,700);
         Container c = getContentPane();
         c.setLayout(null);
-        clientelem clientElem = new clientelem();
+        ClientElem clientElem = new ClientElem();
 
         JButton jbtxt = new JButton("文字发送");jbtxt.setBounds(900,490,110,60);c.add(jbtxt);
         JButton jbpic = new JButton("图片发送");jbpic.setBounds(900,560,110,60);c.add(jbpic);
@@ -86,11 +86,11 @@ public class JComboBoxModel extends JFrame {
         Txtname.setText(clientElem.getName());
         Txtip.setText(clientElem.getServerIP());
         Txtport.setText(String.valueOf(clientElem.getPort()));
-        jbtxt.addActionListener(new sendAction());
+        jbtxt.addActionListener(new SendMessageAction());
         //添加列表监听器，在输入框中显示   @联系人说： 
         jusernamelist.addListSelectionListener(new SelecTry());
         //设置按键监听，打开文件选择窗口
-        jbpic.addActionListener(new sendFileAction());
+        jbpic.addActionListener(new SendFileAction());
         
         addWindowListener(new WindowAdapter() {
             public void windowClosing(WindowEvent e) {

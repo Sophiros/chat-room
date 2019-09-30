@@ -4,7 +4,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.DataOutputStream;
 
-public class sendAction implements ActionListener {
+public class SendMessageAction implements ActionListener {
 	// 重写send按钮的动作响应
 	public void actionPerformed(ActionEvent arg0) {
 		send t = new send();
@@ -14,7 +14,7 @@ public class sendAction implements ActionListener {
 }
 
 class send implements Runnable {
-	clientelem clientValue = new clientelem();
+	ClientElem clientValue = new ClientElem();
     @Override
     public void run() {
         try {
