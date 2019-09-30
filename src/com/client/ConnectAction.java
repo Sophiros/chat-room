@@ -2,9 +2,7 @@ package com.client;
 
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
-import java.io.IOException;
 import java.net.Socket;
-import java.net.SocketException;
 import java.util.Objects;
 
 public class ConnectAction{
@@ -103,33 +101,4 @@ class Read implements Runnable {
             e.printStackTrace();
         }
     }
-}
-
-class RecToServer implements Runnable {
-	Socket socket = null;
-	public RecToServer(Socket socket) {
-		this.socket = socket;
-	}
-	@Override
-	public void run() {
-		try {
-			while (true) {
-				DataInputStream dis = new DataInputStream(socket.getInputStream());
-				String namestr = dis.readUTF();
-				if(namestr != "") {
-					new ClientElem().getBody().append("更新用户列表！"+"\n");
-					String[] name = namestr.split(" ");
-					new ClientElem().setTotalName(name);
-					new ClientElem().setUserNameList();
-					for(int i = 0; i < name.length; i++) {
-						new ClientElem().getBody().append("用户：" + name[i] + "\n");
-					}
-				}
-			}
-		} catch (SocketException e) {
-			System.out.println("服务器已关闭");
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
-	}
 }

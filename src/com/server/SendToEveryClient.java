@@ -9,9 +9,9 @@ import java.net.ServerSocket;
 import java.net.Socket;
 import java.util.Objects;
 
-public class Serverserver implements Runnable {
+public class SendToEveryClient implements Runnable {
 	ServerElem serverValue = new ServerElem();
-    public Serverserver(int port) {
+    public SendToEveryClient(int port) {
         // 构造方法
         try {
         	serverValue.setServerSocket(new ServerSocket(port));
