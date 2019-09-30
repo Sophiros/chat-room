@@ -65,7 +65,7 @@ public class JComboBoxModel extends JFrame {
 
         /*添加标签*/
         JLabel j1 = new JLabel("服务器IP:");
-        JLabel j2 = new JLabel("端口号:");
+        JLabel j2 = new JLabel("服务器端口号:");
         JLabel j3 = new JLabel("用户名：");
         JLabel j4 = new JLabel("当前在线用户:");
 
@@ -96,7 +96,9 @@ public class JComboBoxModel extends JFrame {
             public void windowClosing(WindowEvent e) {
                 super.windowClosing(e);
                 try {
-                	clientElem.getSocket().close();
+                	if(!clientElem.getSocket().isConnected()) {
+                		clientElem.getSocket().close();
+                	}
                 } catch (IOException ex) {
                     ex.printStackTrace();
                 }
