@@ -23,7 +23,7 @@ class Count implements Runnable {
 	ServerElem serverValue = new ServerElem();
 	@Override
     public void run() {
-        SendToEveryClient t = new SendToEveryClient(8888);
+        SeverDispatch t = new SeverDispatch(8888);
         while (true) {
             try {
             	serverValue.setSocket(serverValue.getServerSocket().accept());
