@@ -2,6 +2,9 @@ package com.client;
 
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.IOException;
 import java.net.Socket;
 import java.util.Objects;
 
@@ -94,7 +97,27 @@ class Read implements Runnable {
     					}
     				}
                 }else if (Objects.equals(s3, "FILE")) {
-
+                	int index = clientValue.getEnd(bytes,"********".getBytes("Gbk"),8+12)-8;
+                    byte[] getMessage = new byte[index];
+                    System.arraycopy(bytes, 8+12, getMessage, 0, index);
+                    i = clientValue.getEnd(getMessage, "@@@@@@@@".getBytes("Gbk"), 0)-8;
+                    byte[] v = new byte[i];
+                    System.arraycopy(getMessage, 0, v, 0, i);
+                    String name = new String(v,"Gbk");
+                    name = name + "副本";
+                    byte[] f = new byte[(getMessage.length - 8 - i)];
+                    System.arraycopy(getMessage, (i + 8), f, 0, (getMessage.length - 8 - i));
+                    File file = new File(name);
+                    if (!file.exists()) {
+                         try {
+                             file.createNewFile();
+                         } catch (IOException e) {
+                        	 e.printStackTrace();
+                         }
+                    }
+                    FileOutputStream writer = new FileOutputStream(name, true);
+                    writer.write(f);
+                    writer.close();
                 }
             }
         } catch (Exception e) {

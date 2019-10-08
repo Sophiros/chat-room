@@ -1,6 +1,8 @@
 package com.client3;
 
-import java.awt.*;
+import java.awt.Color;
+import java.awt.Container;
+import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
@@ -10,6 +12,7 @@ import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPasswordField;
 import javax.swing.JTextField;
+import javax.swing.WindowConstants;
 
 import com.client.*;
 
@@ -37,7 +40,7 @@ public  class LoginInterface extends JDialog {
         container1.add(passwordlab);
         container1.add(loginlab);
         loginlab.setFont(new Font("黑体",Font.PLAIN,36));loginlab.setForeground(Color.blue);
-
+        setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
 
         namebox = new JTextField();
 
@@ -54,7 +57,6 @@ public  class LoginInterface extends JDialog {
         container1.add(passwordbox);
         container1.add(bl);
         setVisible(true);
-
         bl.addActionListener(new ActionListener() {
             @SuppressWarnings("deprecation")
             @Override

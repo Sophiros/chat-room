@@ -32,6 +32,7 @@ class send implements Runnable {
                 		clientValue.getMessageOrFile(), clientValue.getToName(), message, clientValue.getEnd());
                 out.write(bytes);
                 out.flush();
+                clientValue.getMessage().setText("");
             } else {
                 clientValue.setToName("ALLA".getBytes("Gbk"));
                 message = clientValue.getMessage().getText().getBytes("Gbk");
@@ -39,6 +40,7 @@ class send implements Runnable {
                 		clientValue.getMessageOrFile(), clientValue.getToName(), message, clientValue.getEnd());
                 out.write(bytes);
                 out.flush();
+                clientValue.getMessage().setText("");
             }
         } catch (Exception e) {
             e.printStackTrace();
