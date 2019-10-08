@@ -50,8 +50,6 @@ public  class LoginInterface extends JDialog {
         passwordbox.setBounds(120,180,150,40);
         JButton bl = new JButton("登录");
         bl.setBounds(120,230,150,30);
-        bl.setForeground(Color.white);
-        bl.setBackground(Color.blue);
         container1.add(namebox);
         container1.add(passwordbox);
         container1.add(bl);

@@ -5,7 +5,6 @@ import java.awt.event.ActionListener;
 import java.io.DataOutputStream;
 import java.io.IOException;
 import java.net.Socket;
-import java.net.SocketException;
 
 public class GetAction implements ActionListener {
 	ServerElem serverValue = new ServerElem();
@@ -43,9 +42,11 @@ class CheckConnection implements Runnable {
 	public void run() {
 		while (true) {
 			try {
+				// System.out.println("checking...");
 				for(int i = 0; i < serverValue.getSocketList().size(); i++) {
 					Socket socket = serverValue.getSocketList().get(i);
 					if(socket.isClosed()) {
+						System.out.println(socket.getPort()+"is closed.");
 						serverValue.getSocketList().remove(i);
 						serverValue.getClientList().remove(socket);
 						byte[] bytes = new byte[1024];

@@ -20,7 +20,7 @@ public class SeverDispatch implements Runnable {
         }
     }
 
-    @Override
+	@Override
     public void run() {
         // 重写run方法
         try {
@@ -28,6 +28,10 @@ public class SeverDispatch implements Runnable {
             while (true) {
                 byte[] bytes = new byte[1024];
                 in.read(bytes);
+                System.out.println(new String(bytes, "Gbk"));
+                if(bytes.length == 0) {
+                	continue;
+                }
                 int i = 0;
                 byte[] temp = new byte[1024];
                 serverValue.setStart("########".getBytes("Gbk"));
@@ -181,10 +185,15 @@ public class SeverDispatch implements Runnable {
 					namelist = "";
                 }
             }
-        } catch (
-                Exception e) {
-        	
-            e.printStackTrace();
+        } catch (Exception e) {
+        	try {
+        	serverValue.getSocket().close();
+        	if(serverValue.getSocket().isClosed()) {
+        	System.out.println("socket is closed!");
+        	}
+        	} catch (Exception e1){
+        		e1.printStackTrace();
+        	}
         }
     }
 }

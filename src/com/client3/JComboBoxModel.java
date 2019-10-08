@@ -36,9 +36,9 @@ public class JComboBoxModel extends JFrame {
         JButton jbtxt = new JButton("文字发送");jbtxt.setBounds(900,490,110,60);c.add(jbtxt);
         JButton jbpic = new JButton("图片发送");jbpic.setBounds(900,560,110,60);c.add(jbpic);
         
-        Txtname = new JTextField(null);
-        Txtip = new JTextField(null);//服务器IP
-        Txtport = new JTextField(null);//端口号
+        Txtname = new JTextField(null);Txtname.setEditable(false);
+        Txtip = new JTextField(null);Txtip.setEditable(false);//服务器IP
+        Txtport = new JTextField(null);Txtport.setEditable(false);//端口号
         
         jusernamelist = clientElem.getUserNameList();
         Txtinput = clientElem.getMessage();//打字文本框
@@ -96,7 +96,7 @@ public class JComboBoxModel extends JFrame {
             public void windowClosing(WindowEvent e) {
                 super.windowClosing(e);
                 try {
-                	if(!clientElem.getSocket().isConnected()) {
+                	if(!clientElem.getSocket().isClosed()) {
                 		clientElem.getSocket().close();
                 	}
                 } catch (IOException ex) {

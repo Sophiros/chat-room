@@ -98,7 +98,8 @@ class Read implements Runnable {
                 }
             }
         } catch (Exception e) {
-            e.printStackTrace();
+        	System.out.println("客户端退出。");
+//            e.printStackTrace();
         }
     }
 }
